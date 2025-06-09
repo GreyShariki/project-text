@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="actions">
-      <button type="button" id = "datetime">Страница даты</button>
+      <button type="button" class="dateButton" id = "datetime">Страница даты</button>
       <button type="button" id = "logout" class="logout">Выход</button>
   </div>
 </div>

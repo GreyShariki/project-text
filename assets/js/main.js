@@ -17,7 +17,7 @@ const loadProfile = async () => {
   const btnLogout = document.getElementById("logout");
   btnLogout.addEventListener("click", async () => {
     const response = await fetch("index.php?action=logout");
-    if (response.status === "Успех") {
+    if (response.status == 200) {
       loadLoginForm();
     }
   });
@@ -31,13 +31,19 @@ const initLoginForm = () => {
   const form = document.getElementById("loginForm");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    const submitter = e.submitter;
+    const authType = submitter?.value;
     const formData = new FormData(form);
 
-    const resp = await fetch("index.php?action=authWithFile", {
+    let action = authType === "db" ? "authWithDatabase" : "authWithFile";
+
+    const resp = await fetch(`index.php?action=${action}`, {
       method: "POST",
       body: formData,
     });
+
     const data = await resp.json();
+
     if (data.status === "Успех") {
       await loadProfile();
     } else {
@@ -54,7 +60,10 @@ const showSessionTime = async () => {
   const response = await fetch("index.php?action=sessionDate");
   const html = await response.text();
   app.innerHTML = html;
-  const clock = document.getElementById("clock");
+  const btnBack = document.getElementById("back");
+  btnBack.addEventListener("click", async () => {
+    loadProfile();
+  });
   updateTime();
   setInterval(updateTime, 1000);
 };

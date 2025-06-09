@@ -4,14 +4,18 @@ require_once "vendor/autoload.php";
 
 use App\Controllers\FileAuthController;
 use App\Controllers\SessionController;
-
+use App\Controllers\DatabaseAuthController;
 
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'authWithFile':
-        $controller = new FileAuthController();
-        $controller->login(); 
+        $fileController = new FileAuthController();
+        $fileController->userAuthentification(); 
+        break;
+    case 'authWithDatabase':
+        $dataBaseController = new DatabaseAuthController();
+        $dataBaseController->userAuthentification(); 
         break;
 
     case 'profile':
@@ -35,11 +39,13 @@ switch ($action) {
             echo json_encode(["status"=> "Ошибка", "massage"=> "Не удалось загрузить страницу"], JSON_UNESCAPED_UNICODE);
             exit;
         }
+       
         include "./pages/components/sessionTime.html";
+      
         break;
         
     case "getData":
-        $sessionTime = new SessionController();
+        $sessionTime = new SessionController($_SESSION["authType"], $_SESSION['user']);
 
         echo $sessionTime->getTime();
         break;
