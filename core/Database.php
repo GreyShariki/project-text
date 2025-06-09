@@ -9,7 +9,8 @@ class Database{
         try {
             $this->connection = new PDO("mysql:host=localhost;port=3308;dbname=ASU","root","");
         } catch (\Throwable $th) {
-            die($th->getMessage());
+            error_log($th->getMessage());
+            die("Ошибка подключения к базе данных");
         }
     }
     public function getConnection(){

@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 use App\Core\Database;
-
+use PDO;
 class SessionModel {
 
     public function getSessionsFromFile() {
@@ -22,7 +22,7 @@ class SessionModel {
         ");
         $stmt->bindParam(':login', $userLogin);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

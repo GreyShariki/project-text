@@ -45,8 +45,13 @@ switch ($action) {
         break;
         
     case "getData":
-        $sessionTime = new SessionController($_SESSION["authType"], $_SESSION['user']);
+        if (!isset($_SESSION['user']) || !isset($_SESSION['authType'])) {
+            http_response_code(403);
+            echo json_encode(["status"=> "Ошибка", "massage" => "Недостаточно данных из сессии"], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
 
+        $sessionTime = new SessionController($_SESSION["authType"], $_SESSION['user']);
         echo $sessionTime->getTime();
         break;
     default:
