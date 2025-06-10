@@ -3,7 +3,7 @@ namespace App\Models;
 use App\Core\Database;
 use PDO;
 class SessionModel {
-
+  
     public function getSessionsFromFile() {
         $path = __DIR__.'/sessions.txt';
         if (file_exists($path)) {
@@ -27,5 +27,22 @@ class SessionModel {
             return $th->getMessage();
         }
 
+    }
+    public function destroySession($userLogin) {
+        try {
+            $db = new Database();
+            $conn = $db -> getConnection();
+            $stmt = $conn -> prepare("
+            DELETE s
+            FROM sessions s
+            JOIN users u ON s.user_id = u.id
+            WHERE u.login = :login
+            ");
+            $stmt->bindParam(":login", $userLogin);
+            $stmt->execute();
+            return json_encode(["status"=> "Успех", "massage"=> "Сессия завершена"]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

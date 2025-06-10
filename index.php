@@ -8,6 +8,8 @@ use App\Controllers\DatabaseAuthController;
 
 $action = $_GET['action'] ?? '';
 
+
+
 switch ($action) {
     case 'authWithFile':
         $fileController = new FileAuthController();
@@ -30,6 +32,8 @@ switch ($action) {
         include "pages/components/form.html";
         break;
     case "logout":
+        $session = new SessionController($_SESSION["authType"], $_SESSION['user']);
+        $session->destroySession();
         session_destroy();
         echo json_encode(["status"=> "Успех"], JSON_UNESCAPED_UNICODE);
         break;
