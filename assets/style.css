@@ -1,94 +1,176 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 20px;
 }
+
 #loginForm {
-  width: 200px;
+  width: 280px;
   margin: 20px auto;
-  padding: 10px;
-  font-family: Arial, sans-serif;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: fadeIn 0.6s forwards;
+}
+
+#loginForm:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 #loginForm legend {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 #loginForm input {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #e0e6ed;
+  border-radius: 8px;
+  font-size: 14px;
   box-sizing: border-box;
+}
+
+#loginForm input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  outline: none;
 }
 
 #loginForm button {
   width: 100%;
-  padding: 8px;
-  background: #f0f0f0;
-  border: 1px solid #aaa;
-  border-radius: 3px;
+  padding: 12px;
+  background: linear-gradient(to right, #4a90e2, #5a67d8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s, transform 0.1s;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
 }
 
 #loginForm button:hover {
-  background: #e0e0e0;
+  background: linear-gradient(to right, #3a7bc8, #4a56c8);
+  transform: translateY(-2px);
 }
+
+#loginForm button:active {
+  transform: translateY(0);
+}
+
 #clock {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  margin-bottom: 15px;
-  padding: 5px;
-  background: #f5f5f5;
+  font-family: "Courier New", monospace;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 15px 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   display: inline-block;
-  min-width: 100px;
+  min-width: 150px;
   text-align: center;
-  border: 1px solid #ddd;
+  color: #2c3e50;
 }
 
 .dateButton {
-  padding: 6px 12px;
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  padding: 10px 20px;
+  background: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  color: #4a90e2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
 
-button:hover {
-  background: #e0e0e0;
+.dateButton:hover {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
 }
+
 .profile {
-  width: 300px;
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
+  width: 320px;
+  margin-top: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .user {
   display: flex;
-  margin: 15px 0;
+  align-items: center;
+  margin: 20px 0;
 }
 
 .avatar {
-  width: 60px;
-  height: 60px;
-  background: #eee;
-  margin-right: 10px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+  margin-right: 15px;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 button {
-  padding: 5px 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+#back {
+  background: white;
+  color: #ff4757;
+  border: 2px solid #ff4757;
+  height: 54px;
+  cursor: pointer;
+}
+#back:hover {
+  background: #ff4757;
+  color: white;
+}
+.logout {
+  background: white;
+  color: #ff4757;
+  border: 2px solid #ff4757;
 }
 
-.logout {
-  color: red;
-  border-color: red;
+.logout:hover {
+  background: #ff4757;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
