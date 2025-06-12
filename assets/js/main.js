@@ -1,4 +1,5 @@
 const app = document.getElementById("app");
+let sessionIntervalId = null;
 const loadLoginForm = async () => {
   const resp = await fetch("index.php?action=loginForm");
   const html = await resp.text();
@@ -51,21 +52,34 @@ const initLoginForm = () => {
     }
   });
 };
-const updateTime = async () => {
+const getStartTime = async () => {
   const response = await fetch("index.php?action=getData");
   const time = await response.text();
-  document.getElementById("clock").innerHTML = time + " секунд";
+  return time;
 };
 const showSessionTime = async () => {
   const response = await fetch("index.php?action=sessionDate");
   const html = await response.text();
   app.innerHTML = html;
+
+  if (sessionIntervalId !== null) {
+    clearInterval(sessionIntervalId);
+    sessionIntervalId = null;
+  }
   const btnBack = document.getElementById("back");
   btnBack.addEventListener("click", async () => {
     loadProfile();
   });
+
+  const startTime = parseInt(await getStartTime(), 10);
+  const updateTime = () => {
+    const now = Math.floor(Date.now() / 1000);
+    const difference = now - startTime;
+    document.getElementById("clock").innerHTML = `${difference} секунд`;
+  };
+
   updateTime();
-  setInterval(updateTime, 1000);
+  sessionIntervalId = setInterval(updateTime, 1000);
 };
 
 loadProfile();
