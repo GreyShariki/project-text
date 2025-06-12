@@ -20,7 +20,6 @@ class AuthModel{
         if ($this->passwordInput == $correctPassword && $this->loginInput == $correctLogin ){
             $_SESSION['user'] = $this->loginInput;
             $_SESSION['authType'] = "file";
-            date_default_timezone_set('Asia/Novosibirsk');
             $logline = date('Y-m-d H:i:s') .'/'. $correctLogin . "\n";
             file_put_contents( __DIR__.'/sessions.txt', $logline, FILE_APPEND);
             return json_encode(['status'=> 'Успех', "user"=> $this -> loginInput ], JSON_UNESCAPED_UNICODE);
