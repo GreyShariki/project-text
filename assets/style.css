@@ -61,6 +61,7 @@ body {
   cursor: pointer;
   transition: all 0.3s, transform 0.1s;
   box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+  margin-top: 5px;
 }
 
 #loginForm button:hover {

@@ -6,11 +6,11 @@ use App\Models\SessionModel;
 class SessionController{
     public $authType;
     public $userLogin;
-    public function __construct($authType, $userLogin){
+    public function __construct($authType, $userLogin) {
         $this->authType = $authType;
         $this->userLogin = $userLogin;
     }
-    public function getTime(){
+    public function getTime() {
         try {
             date_default_timezone_set('Asia/Novosibirsk');
             $now = date("Y-m-d H:i:s");
@@ -34,7 +34,7 @@ class SessionController{
             return json_encode(["status"=> "Ошибка", "massage"=>$th->getMessage()]);
         }
     } 
-    public function destroySession(){
+    public function destroySession() {
         try {
             $sessions = new SessionModel();
             $response = $sessions->destroySession($this->userLogin);
