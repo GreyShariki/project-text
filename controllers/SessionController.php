@@ -12,7 +12,6 @@ class SessionController{
     }
     public function getTime(){
         try {
-            date_default_timezone_set('Asia/Novosibirsk');
             $sessions = new SessionModel();
             if ($this->authType == "file"){
                 $result = $sessions->getSessionsFromFile();
@@ -27,7 +26,7 @@ class SessionController{
                 $result = $sessions->getSessionsFromDb($this->userLogin);
                 $startTime = $result[0]["start_time"];
             }
-            $sessionTime = strtotime($startTime) + 25200;
+            $sessionTime = strtotime($startTime);
             echo json_encode($sessionTime);
         } catch (\Throwable $th) {
             return json_encode(["status"=> "Ошибка", "massage"=>$th->getMessage()]);
