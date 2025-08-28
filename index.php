@@ -1,9 +1,8 @@
 <?php
 session_start();
 require_once "vendor/autoload.php";
-
-use App\Controllers\Router;
+use App\Controllers\ApiController;
 
 $action = $_GET['action'] ?? '';
-$router = new Router();
-$router->handle($action);
+$ApiController = new ApiController();
+$ApiController->handle($action);
