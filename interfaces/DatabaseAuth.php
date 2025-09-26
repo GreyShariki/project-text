@@ -22,6 +22,7 @@ class DatabaseAuth implements AuthInterface {
             $stmt = $conn->prepare("INSERT INTO sessions (user_id) VALUES (:user_id)");
             $stmt->execute(['user_id' => $user['id']]);
             $_SESSION['user'] = $login;
+            $_SESSION['startTime'] = time();
             return json_encode(['status' => 'Успех', 'user' => $login], JSON_UNESCAPED_UNICODE);
         }
         return json_encode(['status' => 'Ошибка', 'message' => 'Неверные учетные данные'],JSON_UNESCAPED_UNICODE);

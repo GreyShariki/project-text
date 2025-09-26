@@ -7,7 +7,7 @@ class Session {
 
     public function __construct($userLogin, $createdAt){
         $this->userLogin = $userLogin;
-        $this->createdAt = $createdAt;
+        $this->createdAt = $createdAt; 
     }
     
     public function getUserlogin(){

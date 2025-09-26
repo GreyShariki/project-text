@@ -11,6 +11,7 @@ use App\Core\Database;
 class ApiController  {
     private RouterController $router;
     private AuthController $authController;
+    private $userSession;
     public function __construct(){
         $this->router = new RouterController;
         $this->authController = new AuthController(new DatabaseAuth(new Database()), new LogoutDatabase(new Database()));
@@ -25,14 +26,13 @@ class ApiController  {
     
     private function authenticate() {
         $result = $this->authController->authenticate();
-        $userSession = new Session($_SESSION['user'], ini_get('session.cookie_lifetime'));
-        if($userSession){
+        $this->userSession = new Session($_SESSION['user'], 222323232323);
+        if($this->userSession){
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
             echo json_encode(['status' => "Ошибка", "message" => "Не удалось создать сессию"]);
         }
     }
-    
     private function loadProfile() {
         if (!$this->isAuthorized()) {
             http_response_code(401);
@@ -49,14 +49,15 @@ class ApiController  {
         $result = $this->authController->logout();
         echo $result;
     }
+    private function getUser(){
+        echo json_encode(["user"=>$_SESSION['user'], "startTime"=> $_SESSION["startTime"]], JSON_UNESCAPED_UNICODE);
+    }
     private function loadDatetime(){
         if (!$this->isAuthorized()){
             http_response_code(401);
             return json_encode(["status" => "Ошибка", "message" => "Unauthorized"]);
         }
-        $userSession = new Session($_SESSION['user'], ini_get('session.cookie_lifetime'));
-        $startTime = $userSession->getSessionDate();
-        return json_encode($startTime, JSON_UNESCAPED_UNICODE);
+        $this->router->loadPage('sessionDate');
     }
 
     private function forbidden($message){

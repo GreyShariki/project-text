@@ -8,7 +8,6 @@ export class AuthManager {
       });
       const text = await fetchResponse.json();
       const data = JSON.parse(text);
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);

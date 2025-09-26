@@ -2,9 +2,7 @@
 namespace App\Controllers;
 
 use App\Interfaces\AuthInterface;
-use App\Interfaces\LogoutDatabase;
 use App\Interfaces\LogoutInterface;
-use App\Core\Database;
 
 class AuthController {
     private AuthInterface $auth;
