@@ -24,7 +24,8 @@ class FileAuth implements AuthInterface {
 
             $logline = date('Y-m-d H:i:s') . '/' . $login . "\n";
             file_put_contents($this->sessionsFile, $logline, FILE_APPEND);
-            
+            $_SESSION['user'] = $login;
+            $_SESSION['startTime'] = time();
             return ['status' => 'Успех', 'user' => $login];
         }
         
