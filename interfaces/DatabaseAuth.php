@@ -19,7 +19,7 @@ class DatabaseAuth implements AuthInterface {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($user && password_verify($password, $user['password'])) {
-            $stmt = $conn->prepare("INSERT INTO sessions (user_id) VALUES (:user_id)");
+            $stmt = $conn->prepare('INSERT INTO sessions (user_id) VALUES (:user_id)');
             $stmt->execute(['user_id' => $user['id']]);
             $_SESSION['user'] = $login;
             $_SESSION['startTime'] = time();

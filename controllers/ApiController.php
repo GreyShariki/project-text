@@ -21,16 +21,16 @@ class ApiController  {
         if (method_exists($this, $action)) {
             return $this->$action();
         }
-        $this->router->loadPage('app');
+        $this->router->loadPage("app");
     }
     
     private function authenticate() {
         $result = $this->authController->authenticate();
-        $this->userSession = new Session($_SESSION['user'], 222323232323);
+        $this->userSession = new Session($_SESSION["user"], 222323232323);
         if($this->userSession){
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
-            echo json_encode(['status' => "Ошибка", "message" => "Не удалось создать сессию"]);
+            echo json_encode(["status" => "Ошибка", "message" => "Не удалось создать сессию"]);
         }
     }
     private function loadProfile() {
@@ -39,10 +39,10 @@ class ApiController  {
             echo json_encode(["status" => "Ошибка", "message" => "Unauthorized"], JSON_UNESCAPED_UNICODE);
             return;
         }
-        $this->router->loadPage('profile');
+        $this->router->loadPage("profile");
     }
     private function loadLoginForm(){
-        $this->router->loadPage('loginForm');
+        $this->router->loadPage("loginForm");
     }
     
     private function logout(){
@@ -57,7 +57,7 @@ class ApiController  {
             http_response_code(401);
             return json_encode(["status" => "Ошибка", "message" => "Unauthorized"]);
         }
-        $this->router->loadPage('sessionDate');
+        $this->router->loadPage("sessionDate");
     }
 
     private function forbidden($message){
@@ -66,7 +66,7 @@ class ApiController  {
     }
     
     private function isAuthorized(){
-        if (!isset($_SESSION['user'])){
+        if (!isset($_SESSION["user"])){
             return false;
         }
         return true;
